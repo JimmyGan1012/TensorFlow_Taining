@@ -43,7 +43,14 @@ model.summary()
 
 model.fit(x_train, y_train, epochs=5)
 
-eval = model.evaluate(x_test,y_test)
+# eval = model.evaluate(x_test,y_test)
+
+# Example to get output from a certain layer
+from keras import backend as K
+# with a Sequential model
+get_3rd_layer_output = K.function([model.layers[0].input],
+                                      [model.layers[5].output])
+layer_output = get_3rd_layer_output(x_test)[0]
 
 print("Accuracy:{}, Loss:{}".format(eval[0],eval[1]))
 
